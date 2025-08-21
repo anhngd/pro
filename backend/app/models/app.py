@@ -68,3 +68,4 @@ class App(Base):
     def __repr__(self):
         return f"<App(name='{self.name}', status='{self.status}')>"
 
+

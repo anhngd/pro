@@ -10,3 +10,4 @@ api_router.include_router(apps.router, prefix="/apps", tags=["applications"])
 api_router.include_router(analytics.router, prefix="/analytics", tags=["analytics"])
 api_router.include_router(dashboard.router, prefix="/dashboard", tags=["dashboard"])
 
+

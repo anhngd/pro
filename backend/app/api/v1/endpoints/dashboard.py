@@ -60,3 +60,4 @@ async def get_chart_data(
             detail="Chart type not found"
         )
 
+
