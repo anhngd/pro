@@ -158,25 +158,35 @@ const themeOptions: ThemeOptions = {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '24px', // Google-style rounded buttons
+          borderRadius: '12px',
           textTransform: 'none',
-          fontWeight: 500,
-          padding: '8px 24px',
+          fontWeight: 600,
+          padding: '10px 24px',
+          fontSize: '0.875rem',
           boxShadow: 'none',
+          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
           '&:hover': {
-            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+            transform: 'translateY(-1px)',
+            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15)',
           },
         },
         contained: {
+          boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.12)',
           '&:hover': {
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.15)',
+            boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.2)',
           },
         },
         outlined: {
-          borderWidth: '1px',
+          borderWidth: '1.5px',
           '&:hover': {
-            borderWidth: '1px',
-            backgroundColor: 'rgba(0, 0, 0, 0.04)',
+            borderWidth: '1.5px',
+            backgroundColor: 'rgba(235, 0, 27, 0.04)',
+            borderColor: 'primary.main',
+          },
+        },
+        text: {
+          '&:hover': {
+            backgroundColor: 'rgba(235, 0, 27, 0.04)',
           },
         },
       },
@@ -184,12 +194,31 @@ const themeOptions: ThemeOptions = {
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
-          boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.08)',
+          borderRadius: 16,
+          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)',
           border: `1px solid ${mastercardColors.border}`,
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           '&:hover': {
-            boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.12)',
+            boxShadow: '0px 8px 30px rgba(0, 0, 0, 0.12)',
+            transform: 'translateY(-2px)',
           },
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)',
+        },
+        elevation1: {
+          boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
+        },
+        elevation2: {
+          boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.08)',
+        },
+        elevation3: {
+          boxShadow: '0px 6px 24px rgba(0, 0, 0, 0.10)',
         },
       },
     },
@@ -197,16 +226,32 @@ const themeOptions: ThemeOptions = {
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-root': {
-            borderRadius: 8,
+            borderRadius: 12,
+            backgroundColor: 'rgba(248, 249, 250, 0.8)',
+            transition: 'all 0.2s ease-in-out',
             '& fieldset': {
               borderColor: mastercardColors.border,
+              borderWidth: '1.5px',
             },
-            '&:hover fieldset': {
-              borderColor: mastercardColors.text.secondary,
+            '&:hover': {
+              backgroundColor: '#FFFFFF',
+              '& fieldset': {
+                borderColor: mastercardColors.text.secondary,
+              },
             },
-            '&.Mui-focused fieldset': {
-              borderColor: mastercardColors.primary.main,
-              borderWidth: 2,
+            '&.Mui-focused': {
+              backgroundColor: '#FFFFFF',
+              boxShadow: `0 0 0 3px rgba(235, 0, 27, 0.1)`,
+              '& fieldset': {
+                borderColor: mastercardColors.primary.main,
+                borderWidth: '2px',
+              },
+            },
+          },
+          '& .MuiInputLabel-root': {
+            fontWeight: 500,
+            '&.Mui-focused': {
+              color: mastercardColors.primary.main,
             },
           },
         },
@@ -215,9 +260,10 @@ const themeOptions: ThemeOptions = {
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+          backdropFilter: 'blur(10px)',
           color: mastercardColors.text.primary,
-          boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.12)',
+          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)',
           borderBottom: `1px solid ${mastercardColors.divider}`,
         },
       },
@@ -233,17 +279,40 @@ const themeOptions: ThemeOptions = {
     MuiListItemButton: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
-          margin: '2px 8px',
+          borderRadius: 12,
+          margin: '4px 12px',
+          padding: '12px 16px',
+          transition: 'all 0.2s ease-in-out',
           '&:hover': {
             backgroundColor: 'rgba(235, 0, 27, 0.08)',
+            transform: 'translateX(4px)',
           },
           '&.Mui-selected': {
             backgroundColor: 'rgba(235, 0, 27, 0.12)',
+            boxShadow: '0px 2px 8px rgba(235, 0, 27, 0.2)',
             '&:hover': {
               backgroundColor: 'rgba(235, 0, 27, 0.16)',
             },
+            '& .MuiListItemIcon-root': {
+              color: mastercardColors.primary.main,
+            },
+            '& .MuiListItemText-primary': {
+              fontWeight: 600,
+              color: mastercardColors.primary.main,
+            },
           },
+        },
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          fontWeight: 500,
+          fontSize: '0.75rem',
+        },
+        outlined: {
+          borderWidth: '1.5px',
         },
       },
     },

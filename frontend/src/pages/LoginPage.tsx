@@ -64,18 +64,38 @@ const LoginPage: React.FC = () => {
     >
       <Container maxWidth="sm">
         <Card
-          elevation={8}
+          elevation={0}
           sx={{
-            borderRadius: 4,
+            borderRadius: 6,
             overflow: 'hidden',
-            backdropFilter: 'blur(10px)',
+            backdropFilter: 'blur(20px)',
             backgroundColor: 'rgba(255, 255, 255, 0.95)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            boxShadow: '0px 20px 60px rgba(0, 0, 0, 0.15)',
           }}
         >
-          <CardContent sx={{ p: 6 }}>
-            <Stack spacing={4} alignItems="center">
+          <CardContent sx={{ p: 8 }}>
+            <Stack spacing={5} alignItems="center">
               {/* Logo and Title */}
               <Box textAlign="center">
+                <Box
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: '50%',
+                    background: 'linear-gradient(45deg, #EB001B, #FF5F00)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mx: 'auto',
+                    mb: 3,
+                    boxShadow: '0px 8px 24px rgba(235, 0, 27, 0.3)',
+                  }}
+                >
+                  <Typography variant="h3" color="white" fontWeight="bold">
+                    M
+                  </Typography>
+                </Box>
                 <Typography
                   variant="h3"
                   fontWeight="bold"
@@ -89,11 +109,11 @@ const LoginPage: React.FC = () => {
                 >
                   Mobile Platform
                 </Typography>
-                <Typography variant="h6" color="text.secondary" gutterBottom>
+                <Typography variant="h6" color="text.secondary" gutterBottom fontWeight={500}>
                   Publishing Hub
                 </Typography>
-                <Typography variant="body1" color="text.secondary">
-                  Nền tảng quản lý và phát hành ứng dụng di động
+                <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 400, mx: 'auto' }}>
+                  Nền tảng quản lý và phát hành ứng dụng di động chuyên nghiệp
                 </Typography>
               </Box>
 

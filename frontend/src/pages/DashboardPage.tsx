@@ -8,6 +8,7 @@ import {
   Paper,
   Stack,
   Chip,
+  Button,
 } from '@mui/material';
 import {
   TrendingUp,
@@ -16,7 +17,10 @@ import {
   People,
   Download,
   Star,
+  Refresh as RefreshIcon,
+  GetApp as ExportIcon,
 } from '@mui/icons-material';
+import PageHeader from '../components/Layout/PageHeader';
 import {
   AreaChart,
   Area,
@@ -81,17 +85,36 @@ interface StatsCardProps {
 const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon, trend, color = 'primary' }) => {
   
   return (
-    <Card elevation={0} sx={{ border: 1, borderColor: 'divider' }}>
-      <CardContent>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={2}>
+    <Card 
+      elevation={0} 
+      sx={{ 
+        border: 1, 
+        borderColor: 'divider',
+        position: 'relative',
+        overflow: 'visible',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '4px',
+          background: `linear-gradient(90deg, ${color === 'primary' ? '#EB001B' : color === 'success' ? '#34A853' : color === 'info' ? '#1A73E8' : color === 'warning' ? '#F9AB00' : '#FF5F00'}, ${color === 'primary' ? '#FF5F00' : color === 'success' ? '#137333' : color === 'info' ? '#4285F4' : color === 'warning' ? '#E37400' : '#F79E1B'})`,
+          borderRadius: '16px 16px 0 0',
+        }
+      }}
+    >
+      <CardContent sx={{ pt: 3 }}>
+        <Stack direction="row" alignItems="flex-start" justifyContent="space-between" mb={3}>
           <Box
             sx={{
-              p: 1,
-              borderRadius: 2,
+              p: 2,
+              borderRadius: 3,
               bgcolor: `${color}.light`,
               color: `${color}.contrastText`,
               display: 'flex',
               alignItems: 'center',
+              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
             }}
           >
             {icon}
@@ -101,14 +124,18 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon, trend, color 
               label={`${trend > 0 ? '+' : ''}${trend}%`}
               size="small"
               color={trend > 0 ? 'success' : 'error'}
-              icon={<TrendingUp />}
+              icon={<TrendingUp fontSize="small" />}
+              sx={{ 
+                fontWeight: 600,
+                boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
+              }}
             />
           )}
         </Stack>
-        <Typography variant="h4" fontWeight="bold" mb={0.5}>
+        <Typography variant="h3" fontWeight="bold" mb={1} color="text.primary">
           {typeof value === 'number' ? value.toLocaleString() : value}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body1" color="text.secondary" fontWeight={500}>
           {title}
         </Typography>
       </CardContent>
@@ -119,19 +146,37 @@ const StatsCard: React.FC<StatsCardProps> = ({ title, value, icon, trend, color 
 const DashboardPage: React.FC = () => {
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: 4, bgcolor: 'background.default', minHeight: '100vh' }}>
       {/* Header */}
-      <Box mb={4}>
-        <Typography variant="h4" fontWeight="bold" mb={1}>
-          Dashboard
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Tổng quan về hiệu suất ứng dụng và doanh thu
-        </Typography>
-      </Box>
+      <PageHeader
+        title="Dashboard"
+        subtitle="Tổng quan về hiệu suất ứng dụng và doanh thu"
+        breadcrumbs={[
+          { label: 'Home', href: '/' },
+          { label: 'Dashboard' }
+        ]}
+        actions={
+          <Stack direction="row" spacing={2}>
+            <Button
+              variant="outlined"
+              startIcon={<RefreshIcon />}
+              sx={{ borderRadius: 3 }}
+            >
+              Refresh
+            </Button>
+            <Button
+              variant="contained"
+              startIcon={<ExportIcon />}
+              sx={{ borderRadius: 3 }}
+            >
+              Export
+            </Button>
+          </Stack>
+        }
+      />
 
       {/* Stats Cards */}
-      <Grid container spacing={3} mb={4}>
+      <Grid container spacing={4} mb={6}>
         <Grid item xs={12} sm={6} md={4} lg={2}>
           <StatsCard
             title="Tổng số Apps"
@@ -189,14 +234,27 @@ const DashboardPage: React.FC = () => {
       </Grid>
 
       {/* Charts */}
-      <Grid container spacing={3} mb={4}>
+      <Grid container spacing={4} mb={6}>
         {/* Revenue Chart */}
         <Grid item xs={12} lg={8}>
-          <Card elevation={0} sx={{ border: 1, borderColor: 'divider', height: 400 }}>
-            <CardContent>
-              <Typography variant="h6" fontWeight="bold" mb={3}>
-                Doanh thu và Người dùng theo Tháng
-              </Typography>
+          <Card elevation={0} sx={{ border: 1, borderColor: 'divider', height: 480 }}>
+            <CardContent sx={{ p: 4 }}>
+              <Stack direction="row" alignItems="center" justifyContent="space-between" mb={4}>
+                <Box>
+                  <Typography variant="h5" fontWeight="bold" mb={1}>
+                    Doanh thu và Người dùng theo Tháng
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Theo dõi xu hướng tăng trưởng theo thời gian
+                  </Typography>
+                </Box>
+                <Chip 
+                  label="12 tháng gần nhất" 
+                  variant="outlined" 
+                  size="small"
+                  sx={{ fontWeight: 500 }}
+                />
+              </Stack>
               <ResponsiveContainer width="100%" height={320}>
                 <AreaChart data={revenueData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
@@ -233,10 +291,13 @@ const DashboardPage: React.FC = () => {
 
         {/* App Categories */}
         <Grid item xs={12} lg={4}>
-          <Card elevation={0} sx={{ border: 1, borderColor: 'divider', height: 400 }}>
-            <CardContent>
-              <Typography variant="h6" fontWeight="bold" mb={3}>
+          <Card elevation={0} sx={{ border: 1, borderColor: 'divider', height: 480 }}>
+            <CardContent sx={{ p: 4 }}>
+              <Typography variant="h5" fontWeight="bold" mb={1}>
                 Phân loại Apps
+              </Typography>
+              <Typography variant="body2" color="text.secondary" mb={4}>
+                Phân bố theo danh mục ứng dụng
               </Typography>
               <ResponsiveContainer width="100%" height={250}>
                 <PieChart>

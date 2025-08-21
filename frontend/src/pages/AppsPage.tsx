@@ -108,24 +108,38 @@ interface AppCardProps {
 
 const AppCard: React.FC<AppCardProps> = ({ app, onMenuClick }) => {
   return (
-    <Card elevation={0} sx={{ border: 1, borderColor: 'divider', height: '100%' }}>
-      <CardContent>
-        <Stack spacing={2}>
+    <Card 
+      elevation={0} 
+      sx={{ 
+        border: 1, 
+        borderColor: 'divider', 
+        height: '100%',
+        cursor: 'pointer',
+        '&:hover': {
+          borderColor: 'primary.light',
+        }
+      }}
+    >
+      <CardContent sx={{ p: 3 }}>
+        <Stack spacing={3}>
           {/* Header */}
           <Stack direction="row" alignItems="flex-start" justifyContent="space-between">
             <Stack direction="row" spacing={2} alignItems="center">
               <Avatar
                 sx={{
-                  width: 48,
-                  height: 48,
+                  width: 56,
+                  height: 56,
                   bgcolor: 'primary.light',
                   color: 'primary.contrastText',
+                  fontSize: '1.25rem',
+                  fontWeight: 'bold',
+                  boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
                 }}
               >
                 {app.name.charAt(0)}
               </Avatar>
-              <Box>
-                <Typography variant="h6" fontWeight="bold" noWrap>
+              <Box sx={{ minWidth: 0, flex: 1 }}>
+                <Typography variant="h6" fontWeight="bold" noWrap mb={0.5}>
                   {app.name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" noWrap>
@@ -136,6 +150,10 @@ const AppCard: React.FC<AppCardProps> = ({ app, onMenuClick }) => {
             <IconButton
               size="small"
               onClick={(e) => onMenuClick(e, app.id)}
+              sx={{ 
+                opacity: 0.7,
+                '&:hover': { opacity: 1 }
+              }}
             >
               <MoreVertIcon />
             </IconButton>
@@ -226,21 +244,37 @@ const AppsPage: React.FC = () => {
   ];
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: 4, bgcolor: 'background.default', minHeight: '100vh' }}>
       {/* Header */}
-      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={4}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Box>
-          <Typography variant="h4" fontWeight="bold" mb={1}>
+          <Typography variant="h3" fontWeight="bold" mb={2} color="text.primary">
             Apps Management
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="h6" color="text.secondary" fontWeight={500}>
             Quản lý tất cả ứng dụng di động và games
           </Typography>
+          <Box 
+            sx={{ 
+              width: 60, 
+              height: 4, 
+              background: 'linear-gradient(90deg, #EB001B, #FF5F00)', 
+              borderRadius: 2, 
+              mt: 2 
+            }} 
+          />
         </Box>
         <Button
           variant="contained"
           startIcon={<AddIcon />}
-          sx={{ borderRadius: 3 }}
+          size="large"
+          sx={{ 
+            borderRadius: 3,
+            px: 4,
+            py: 1.5,
+            fontSize: '1rem',
+            fontWeight: 600,
+          }}
         >
           Thêm App Mới
         </Button>
