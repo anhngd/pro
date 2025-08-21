@@ -74,3 +74,4 @@ async def get_app_analytics(
         "rating": 4.5,
         "retention_rate": 0.65
     }
+

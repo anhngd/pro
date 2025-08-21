@@ -34,3 +34,4 @@ class User(Base):
     def __repr__(self):
         return f"<User(email='{self.email}', role='{self.role}')>"
 
+

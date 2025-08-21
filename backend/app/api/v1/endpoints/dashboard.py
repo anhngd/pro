@@ -59,3 +59,4 @@ async def get_chart_data(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Chart type not found"
         )
+

@@ -104,3 +104,4 @@ async def delete_user(
     db.commit()
     
     return {"message": "User deleted successfully"}
+

@@ -48,3 +48,4 @@ else
     echo "❌ Some services failed to start. Check logs with: docker-compose logs"
     exit 1
 fi
+
